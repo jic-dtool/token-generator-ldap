@@ -1,0 +1,10 @@
+production.cfg
+
+env_vars.bash
+
+pato*
+
+*.swp
+*.pyc
+
+env
