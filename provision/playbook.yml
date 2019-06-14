@@ -1,0 +1,14 @@
+---
+
+- name: provision token-generator-ldap
+  hosts: all
+
+  vars_files:
+    - vars.yml
+
+  roles:
+    - epel
+    - git
+    - python_tools
+    - nginx 
+    - token_generator_ldap

@@ -1,0 +1,67 @@
+---
+
+- name: create the webapp group
+  group:
+    name: webapp
+    state: present
+
+- name: create the webapp user
+  user:
+    name: webapp
+    group: webapp
+
+- name: create ssh key pair
+  become: yes
+  become_user: webapp
+  command: ssh-keygen -t rsa -N "" -f /home/webapp/id_rsa
+  args:
+    creates: /home/webapp/id_rsa
+
+- name: clone the token_generator_ldap repo
+  become: yes
+  become_user: webapp
+  git:
+    repo: https://github.com/jic-dtool/token-generator-ldap.git
+    dest: /home/webapp/token-generator-ldap
+
+- name: install gunicorn
+  become: yes
+  become_user: webapp
+  pip:
+    name: [ "gunicorn" ]
+    virtualenv: /home/webapp/venv
+
+- name: install requirements
+  become: yes
+  become_user: webapp
+  pip:
+    requirements: /home/webapp/token-generator-ldap/requirements.txt
+    virtualenv: /home/webapp/venv
+  
+- name: create the production.cfg file
+  become: yes
+  become_user: webapp
+  template:
+    src: production.cfg
+    dest: /home/webapp/production.cfg
+
+- name: copy over load_env.sh script
+  become: yes
+  become_user: webapp
+  copy:
+    src: load_env.sh
+    dest: /home/webapp/load_env.sh
+
+- name: copy over start_gunicorn.sh script
+  become: yes
+  become_user: webapp
+  copy:
+    src: start_gunicorn.sh
+    dest: /home/webapp/start_gunicorn.sh
+
+- name: create logs directory
+  file:
+    path: /home/webapp/logs
+    owner: webapp
+    group: webapp
+    state: directory
