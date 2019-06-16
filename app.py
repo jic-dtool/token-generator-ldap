@@ -1,6 +1,7 @@
 import os
 
 from flask import Flask, abort, jsonify, request
+from flask_cors import CORS
 from flask_jwt_extended import JWTManager, create_access_token
 from flask_ldap3_login import LDAP3LoginManager
 
@@ -22,6 +23,7 @@ class Config(object):
 
 
 app = Flask(__name__)
+CORS(app)
 
 app.config.from_envvar("FLASK_CONFIG_FILE")
 app.config.from_object(Config)
@@ -65,4 +67,5 @@ def token():
         token = create_access_token(identity=username)
         response["token"] = token
 
+    print(response)
     return jsonify(response)
