@@ -38,6 +38,7 @@ Create a file named ``production.cfg`` with contents along the lines of the belo
     LDAP_USER_LOGIN_ATTR="UID"
     LDAP_BIND_USER_DN=""
     LDAP_BIND_USER_PASSWORD=""
+    JWT_ACCESS_TOKEN_EXPIRES=2880
 
 See `flask-ldap3-login <https://flask-ldap3-login.readthedocs.io>`_
 documentation for more information on how to configure the connection to the

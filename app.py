@@ -20,6 +20,9 @@ class Config(object):
     JWT_ALGORITHM = "RS256"
     JWT_PRIVATE_KEY = get_file_content("JWT_PRIVATE_KEY_FILE")
     JWT_PUBLIC_KEY = get_file_content("JWT_PUBLIC_KEY_FILE")
+    JWT_ACCESS_TOKEN_EXPIRES = int(
+        os.environ.get("JWT_ACCESS_TOKEN_EXPIRES", 15)
+    )
 
 
 app = Flask(__name__)
