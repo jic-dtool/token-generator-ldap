@@ -28,7 +28,14 @@ Configuration::
     export JWT_PUBLIC_KEY_FILE=~/.ssh/id_rsa.pub
     export JWT_PRIVATE_KEY_FILE=~/.ssh/id_rsa
 
-Create a file named ``production.cfg`` with contents along the lines of the below::
+Optionally, the expiration time can changed from the default setting of 15
+seconds, in the example below it is extended to two days::
+
+    export JWT_ACCESS_TOKEN_EXPIRES=2880
+
+Create a file named ``production.cfg`` with contents along the lines of the
+below to allow the server to pass on the authentication of users to an external
+LDAP server::
 
     LDAP_HOST="ldap://ldap.famousuni.ac.uk"
     LDAP_BASE_DN="ou=users,dc=famousuni,dc=ac,dc=uk"
@@ -38,7 +45,7 @@ Create a file named ``production.cfg`` with contents along the lines of the belo
     LDAP_USER_LOGIN_ATTR="UID"
     LDAP_BIND_USER_DN=""
     LDAP_BIND_USER_PASSWORD=""
-    JWT_ACCESS_TOKEN_EXPIRES=2880
+
 
 See `flask-ldap3-login <https://flask-ldap3-login.readthedocs.io>`_
 documentation for more information on how to configure the connection to the
