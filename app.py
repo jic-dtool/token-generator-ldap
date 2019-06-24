@@ -60,8 +60,6 @@ def token():
     password = data["password"]
 
     # Authenticate.
-    print(username)
-    print(password)
     ldap_response = ldap_manager.authenticate(username, password)
 
     response = {}
@@ -70,5 +68,4 @@ def token():
         token = create_access_token(identity=username)
         response["token"] = token
 
-    print(response)
     return jsonify(response)
