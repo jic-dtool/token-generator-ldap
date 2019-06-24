@@ -1,4 +1,4 @@
-vars.yml
+vars.yml*
 hosts
 
 *.retry
