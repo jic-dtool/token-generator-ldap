@@ -1,5 +1,7 @@
 import os
 
+import click
+
 from flask import Flask, abort, jsonify, request
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager, create_access_token
@@ -41,12 +43,13 @@ ldap_manager = LDAP3LoginManager(app)
 
 @app.route("/")
 def index():
-    return "JWT token generator web service authenticating against LDAP back end"
+    return "JWT token generation service authenticating against LDAP back end"
 
 
 @app.route("/public_key")
 def public_key():
     return app.config["JWT_PUBLIC_KEY"]
+
 
 @app.route("/token", methods=["POST"])
 def token():
@@ -69,3 +72,19 @@ def token():
         response["token"] = token
 
     return jsonify(response)
+
+
+#############################################################################
+# Command line helper utilities.
+#############################################################################
+
+@app.cli.command()
+@click.argument('username')
+@click.option("--last-forever", is_flag=True)
+def generate_token(username, last_forever):
+    """Generate token."""
+    if last_forever:
+        token = create_access_token(identity=username, expires_delta=False)
+    else:
+        token = create_access_token(identity=username)
+    print(token)
