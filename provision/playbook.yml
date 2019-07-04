@@ -11,4 +11,5 @@
     - git
     - python_tools
     - nginx 
+    - firewalld
     - token_generator_ldap
