@@ -7,9 +7,6 @@ from flask_cors import CORS
 from flask_jwt_extended import JWTManager, create_access_token
 from flask_ldap3_login import LDAP3LoginManager
 
-import logging
-logging.basicConfig(level=logging.DEBUG)
-
 def get_file_content(key, default=""):
     file_path = os.environ.get(key, "")
     if os.path.isfile(file_path):
@@ -25,7 +22,7 @@ class Config(object):
     JWT_PRIVATE_KEY = get_file_content("JWT_PRIVATE_KEY_FILE")
     JWT_PUBLIC_KEY = get_file_content("JWT_PUBLIC_KEY_FILE")
     JWT_ACCESS_TOKEN_EXPIRES = int(
-        os.environ.get("JWT_ACCESS_TOKEN_EXPIRES", 15*60) # 15 minutes
+        os.environ.get("JWT_ACCESS_TOKEN_EXPIRES", 15)
     )
 
 
