@@ -7,6 +7,7 @@ from flask_cors import CORS
 from flask_jwt_extended import JWTManager, create_access_token
 from flask_ldap3_login import LDAP3LoginManager
 
+
 def get_file_content(key, default=""):
     file_path = os.environ.get(key, "")
     if os.path.isfile(file_path):
