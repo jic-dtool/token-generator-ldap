@@ -53,3 +53,8 @@ LDAP server.
 Starting the server::
 
     flask run
+
+Utility commands::
+
+    flask generate-token <username>
+    flask test-authentication <username>
