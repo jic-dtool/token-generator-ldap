@@ -22,7 +22,6 @@ Installation::
 
 Configuration::
 
-    export FLASK_APP=dtool_lookup_server
     export FLASK_APP=app.py
     export FLASK_CONFIG_FILE=production.cfg
     export JWT_PUBLIC_KEY_FILE=~/.ssh/id_rsa.pub
