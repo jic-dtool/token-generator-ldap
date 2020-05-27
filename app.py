@@ -92,7 +92,7 @@ def generate_token(username, last_forever):
 
 @app.cli.command()
 @click.argument('username')
-@click.argument('password')
+@click.option('--password', prompt=True, hide_input=True)
 def test_authentication(username, password):
     """Test authentication."""
     ldap_response = ldap_manager.authenticate(username, password)
