@@ -88,3 +88,12 @@ def generate_token(username, last_forever):
     else:
         token = create_access_token(identity=username)
     print(token)
+
+
+@app.cli.command()
+@click.argument('username')
+@click.argument('password')
+def test_authentication(username, password):
+    """Test authentication."""
+    ldap_response = ldap_manager.authenticate(username, password)
+    print(ldap_response.status)
