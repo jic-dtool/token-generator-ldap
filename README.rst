@@ -32,6 +32,14 @@ seconds, in the example below it is extended to two days::
 
     export JWT_ACCESS_TOKEN_EXPIRES=2880
 
+Tokens carry the audience (``aud``) and issuer (``iss``) claims ``dserver``,
+which dserver requires by default. If dserver is configured to expect other
+values (``JWT_DECODE_AUDIENCE`` and ``JWT_DECODE_ISSUER`` there), set the same
+values here; an empty value leaves the claim out::
+
+    export JWT_AUDIENCE=dserver
+    export JWT_ISSUER=dserver
+
 Create a file named ``production.cfg`` with contents along the lines of the
 below to allow the server to pass on the authentication of users to an external
 LDAP server::
@@ -58,3 +66,8 @@ Utility commands::
 
     flask generate-token <username>
     flask test-authentication <username>
+
+Running the tests::
+
+    pip install -r requirements.txt pytest PyJWT cryptography
+    pytest tests
