@@ -17,6 +17,11 @@ def get_file_content(key, default=""):
     return content
 
 
+def get_optional_env(key, default):
+    """Return environment variable, its default if unset, None if empty."""
+    return os.environ.get(key, default).strip() or None
+
+
 class Config(object):
 
     JWT_ALGORITHM = "RS256"
@@ -25,6 +30,11 @@ class Config(object):
     JWT_ACCESS_TOKEN_EXPIRES = int(
         os.environ.get("JWT_ACCESS_TOKEN_EXPIRES", 15)
     )
+    # dserver requires audience and issuer "dserver" by default
+    # (JWT_DECODE_AUDIENCE and JWT_DECODE_ISSUER there). Set the variables to
+    # the values dserver expects; empty values leave the claims out.
+    JWT_ENCODE_AUDIENCE = get_optional_env("JWT_AUDIENCE", "dserver")
+    JWT_ENCODE_ISSUER = get_optional_env("JWT_ISSUER", "dserver")
 
 
 app = Flask(__name__)
